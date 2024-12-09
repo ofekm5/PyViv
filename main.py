@@ -6,7 +6,8 @@ import argparse
 # Example usage:
 # python main.py ./entityX/entityX.vhd ./entityX/ip_package
 # When Vivaldo is not in the PATH:
-# python main.py ./entityX/entityX.vhd ./entityX/ip_package --vivado C:/Xilinx/Vivado/2024.1/bin/vivado.bat
+# python main.py "./entityX/entityX.vhd" "./entityX/ip_package" --vivado "C:/Xilinx/Vivado/2024.1/bin/vivado.bat"
+# python main.py "C:\Users\avita\Documents\Template\Template.srcs\sources_1\Comp\Comp.vhd" "C:\Users\avita\Documents\Template\Template.srcs\sources_1\Comp\ip_package" --vivado "C:/Xilinx/Vivado/2024.1/bin/vivado.bat"
 
 def run_vivado(vhdl_file, ip_dir, vivado_path):
     """
@@ -53,22 +54,21 @@ def run_vivado(vhdl_file, ip_dir, vivado_path):
         print("\033[32mVivado completed successfully.\033[0m")
 
 def format_vivado_output(line):
-    """
-    Formats Vivado output for better readability.
+    """Formats Vivado output with regex for better readability."""
+    # Skip lines starting with #
+    if line.strip().startswith("#"):
+        return
     
-    Args:
-        line (str): Output line from Vivado.
-    """
     if "ERROR" in line:
-        print(f"\033[31m[ERROR]: {line.strip()}\033[0m")  # Red for errors
+        print(f"\033[31m{line.strip()}\033[0m")  # Red for errors
     elif "WARNING" in line:
-        print(f"\033[33m[WARNING]: {line.strip()}\033[0m")  # Yellow for warnings
+        print(f"\033[33m{line.strip()}\033[0m")  # Yellow for warnings
     elif "INFO" in line:
-        print(f"\033[32m[INFO]: {line.strip()}\033[0m")  # Green for info
-    elif re.search(r"\bCRITICAL\b", line, re.IGNORECASE):
-        print(f"\033[35m[CRITICAL]: {line.strip()}\033[0m")  # Magenta for critical warnings
+        print(f"\033[32m{line.strip()}\033[0m")  # Green for info
     else:
-        print(f"\033[37m{line.strip()}\033[0m")  # Default (white) for other output
+        print(f"\033[34m{line.strip()}\033[0m")  # Blue for other output
+
+
 
 def main():
     parser = argparse.ArgumentParser(description="VHDL IP Wrapper Tool")
