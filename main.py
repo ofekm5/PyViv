@@ -3,6 +3,12 @@ import subprocess
 import re
 import argparse
 
+# TODO! 
+# make from this script a local pip package(turn this folder into src)
+# route all logs and journals into a file that is emptied
+
+
+
 # Example usage:
 # python main.py ./entityX/entityX.vhd ./entityX/ip_package
 # When Vivaldo is not in the PATH:
