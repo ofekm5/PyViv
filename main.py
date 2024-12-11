@@ -3,14 +3,13 @@ import subprocess
 import argparse
 from datetime import datetime
 
-# TODO! 
-# make from this script a local pip package(turn this folder into src)
+# TODO! make from this script a local pip package(turn this folder into src)
 
 # Example usage:
-# python main.py ./entityX/entityX.vhd ./entityX/ip_package
-# When Vivaldo is not in the PATH:
-# python main.py "./entityX/entityX.vhd" "./entityX/ip_package" --vivado "C:/Xilinx/Vivado/2024.1/bin/vivado.bat"
-# python main.py "C:\Users\avita\Documents\Template\Template.srcs\sources_1\Comp\Comp.vhd" "C:\Users\avita\Documents\Template\Template.srcs\sources_1\Comp\ip_package" --vivado "C:/Xilinx/Vivado/2024.1/bin/vivado.bat"
+# python main.py ./entityX/entityX.vhd
+# When Vivado is not in the PATH:
+# python main.py "./entityX/entityX.vhd" --vivado "C:/Xilinx/Vivado/2024.1/bin/vivado.bat"
+# python main.py "C:\Users\avita\Documents\Template\Template.srcs\sources_1\Comp\Comp.vhd" --vivado "C:/Xilinx/Vivado/2024.1/bin/vivado.bat"
 
 def run_vivado(vhdl_file, ip_dir, vivado_path):
     curr_datetime = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -69,11 +68,9 @@ def format_vivado_output(line):
         print(f"\033[34m{line.strip()}\033[0m")  # Blue for other output
 
 
-
 def main():
     parser = argparse.ArgumentParser(description="VHDL IP Wrapper Tool")
     parser.add_argument("vhdl_file", help="Path to the VHDL file.")
-    parser.add_argument("ip_dir", help="Output directory for the IP package.")
     parser.add_argument("--vivado", default="vivado", help="Path to the Vivado executable (default: 'vivado').")
 
     args = parser.parse_args()
@@ -82,12 +79,17 @@ def main():
     if not os.path.isfile(args.vhdl_file):
         print(f"\033[31mERROR: VHDL file '{args.vhdl_file}' not found.\033[0m")
         return
-    if not os.path.isdir(args.ip_dir):
-        print(f"\033[33mINFO: Directory '{args.ip_dir}' does not exist. Creating it...\033[0m")
-        os.makedirs(args.ip_dir)
+
+    # Infer IP package directory from the VHDL file path
+    vhdl_dir = os.path.dirname(args.vhdl_file)
+    ip_dir = os.path.join(vhdl_dir, "ip_package")
+
+    if not os.path.isdir(ip_dir):
+        print(f"\033[33mINFO: Directory '{ip_dir}' does not exist. Creating it...\033[0m")
+        os.makedirs(ip_dir)
 
     # Run Vivado
-    run_vivado(args.vhdl_file, args.ip_dir, args.vivado)
+    run_vivado(args.vhdl_file, ip_dir, args.vivado)
 
 if __name__ == "__main__":
     main()
