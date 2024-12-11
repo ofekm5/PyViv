@@ -5,11 +5,8 @@ from datetime import datetime
 
 # TODO! make from this script a local pip package(turn this folder into src)
 
-# Example usage:
-# python main.py ./entityX/entityX.vhd
-# When Vivado is not in the PATH:
-# python main.py "./entityX/entityX.vhd" --vivado "C:/Xilinx/Vivado/2024.1/bin/vivado.bat"
-# python main.py "C:\Users\avita\Documents\Template\Template.srcs\sources_1\Comp\Comp.vhd" --vivado "C:/Xilinx/Vivado/2024.1/bin/vivado.bat"
+
+# Example usage: python main.py "./entityX/entityX.vhd" --vivado "C:/Xilinx/Vivado/2024.1/bin/vivado.bat"
 
 def run_vivado(vhdl_file, ip_dir, vivado_path):
     curr_datetime = datetime.now().strftime("%Y%m%d_%H%M%S")
