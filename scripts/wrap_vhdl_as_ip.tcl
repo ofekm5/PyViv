@@ -5,6 +5,7 @@ if {[llength $::argv] < 2} {
     exit 1
 }
 
+
 # Arguments: VHDL file and IP output directory
 set vhdl_file [lindex $::argv 0]
 set ip_dir [lindex $::argv 1]

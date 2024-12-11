@@ -1,13 +1,10 @@
 import os
 import subprocess
-import re
 import argparse
+from datetime import datetime
 
 # TODO! 
 # make from this script a local pip package(turn this folder into src)
-# route all logs and journals into a file that is emptied
-
-
 
 # Example usage:
 # python main.py ./entityX/entityX.vhd ./entityX/ip_package
@@ -16,14 +13,9 @@ import argparse
 # python main.py "C:\Users\avita\Documents\Template\Template.srcs\sources_1\Comp\Comp.vhd" "C:\Users\avita\Documents\Template\Template.srcs\sources_1\Comp\ip_package" --vivado "C:/Xilinx/Vivado/2024.1/bin/vivado.bat"
 
 def run_vivado(vhdl_file, ip_dir, vivado_path):
-    """
-    Runs Vivado with the provided TCL script and arguments.
-    
-    Args:
-        vhdl_file (str): Path to the VHDL file.
-        ip_dir (str): Directory for the generated IP.
-        vivado_path (str): Path to the Vivado executable.
-    """
+    curr_datetime = datetime.now().strftime("%Y%m%d_%H%M%S")
+    journal_file = f"vivado_session_{curr_datetime}.jou"
+    log_file = f"vivado_session_{curr_datetime}.log"
     tcl_script = os.path.join(os.path.dirname(__file__), "wrap_vhdl_as_ip.tcl")
     
     if not os.path.isfile(tcl_script):
@@ -33,6 +25,8 @@ def run_vivado(vhdl_file, ip_dir, vivado_path):
     command = [
         vivado_path, "-mode", "batch",
         "-source", tcl_script,
+        "-journal", journal_file,  
+        "-log", log_file,          
         "-tclargs", vhdl_file, ip_dir
     ]
 
