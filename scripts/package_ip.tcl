@@ -1,3 +1,5 @@
+# Change Temp Project Location: Set the temporary project directory to a non-sync folder (outside OneDrive or similar) to avoid sync-related issues.
+
 ipx::infer_core -vendor xilinx.com -library user -taxonomy /UserIP C:/Users/avita/OneDrive/Desktop/Dummy/Dummy.srcs/sources_1/new
 ipx::edit_ip_in_project -upgrade true -name Dummy_IP_Proj -directory C:/Users/avita/OneDrive/Desktop/Dummy/Dummy.tmp c:/Users/avita/OneDrive/Desktop/Dummy/Dummy.srcs/sources_1/new/component.xml
 ipx::current_core c:/Users/avita/OneDrive/Desktop/Dummy/Dummy.srcs/sources_1/new/component.xml
