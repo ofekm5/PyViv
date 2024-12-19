@@ -3,9 +3,8 @@ import subprocess
 import argparse
 from datetime import datetime
 
+
 # TODO! make from this script a local pip package(turn this folder into src)
-
-
 # Example usage: python main.py "./entityX/entityX.vhd" --vivado "C:/Xilinx/Vivado/2024.1/bin/vivado.bat"
 
 def run_vivado(vhdl_file, ip_dir, vivado_path):
