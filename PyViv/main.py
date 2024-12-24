@@ -2,6 +2,10 @@ import os
 import subprocess
 import argparse
 
+# consider adding logs/journaling for testing and debugging purposes
+
+pyviv_choices=["add_file", "check_syntax", "create_wrapper"]
+
 def run_tcl_script(tcl_script, vivado_path, args):
     """Runs a Vivado TCL script with the provided arguments."""
     if not os.path.isfile(tcl_script):
@@ -61,28 +65,26 @@ def buildArguments(args):
     return tcl_args
 
 
-def main():
-    parser = argparse.ArgumentParser(description="PyViv: A Vivado Management Tool")
-    parser.add_argument("operation", choices=["add_file", "check_syntax", "create_wrapper"],
-                        help="Operation to perform (e.g., add_file, check_syntax, create_wrapper).")
-    parser.add_argument("--vivado", default="vivado", help="Path to the Vivado executable (default: 'vivado').")
-    parser.add_argument("--file", help="Path to the VHDL file (for add_file or check_syntax operations).")
+def validate_args(tcl_script):
+    # TODO: add validation for all arguments
 
-    args = parser.parse_args()
-
-    # Map operations to their respective TCL scripts
-    tcl_scripts = {
-        "add_file": "scripts/add_remove_files.tcl",
-        "check_syntax": "scripts/check_srcs_syntax.tcl",
-        "create_wrapper": "scripts/create_vhdl_in_project.tcl"
-    }
-
-    tcl_script = tcl_scripts.get(args.operation)
     if not tcl_script:
         print(f"\033[31mERROR: Unsupported operation '{args.operation}'.\033[0m")
         return
 
-    # Build arguments for the TCL script
+
+def main():
+    parser = argparse.ArgumentParser(description="PyViv: A Vivado Management Tool")
+    parser.add_argument("operation", choices=pyviv_choices,
+                        help="Operation to perform (e.g., add_file, check_syntax, create_wrapper).")
+    parser.add_argument("--vivado", default="vivado", help="Path to the Vivado executable (default: 'vivado').")
+    parser.add_argument("--file", help="Path to the VHDL file (for add_file or check_syntax operations).")
+    tcl_script = "scripts/" + args.operation + ".tcl"
+
+    args = parser.parse_args()
+
+    validate_args(args, tcl_script)
+
     tcl_args = buildArguments(args)
 
     run_tcl_script(tcl_script, args.vivado, tcl_args)
