@@ -2,11 +2,10 @@ import PyVivConfig
 import PyVivExecutor
 
 # Example Usage:
-# pyviv add-path --path "/path/to/project/repo"
-# pyviv create-entity --entity MyEntity
-# pyviv create-test --entity MyEntity
-# pyviv check-syntax
-# pyviv create-entity --entity MyEntity --path "/different/path"
+# python main.py add-path --path "/path/to/project/repo"
+# python main.py create-test --entity TempValidatortwoTB --path "C:\Users\avita\source\repos\ofekm5\ZeroRttTcp\ClientNIC\TcpDetector"
+# python main.py check-syntax --path "C:\Users\avita\source\repos\ofekm5\ZeroRttTcp\ClientNIC\TcpDetector"
+# python main.py create-entity --entity ReservedValidator --path "C:\Users\avita\source\repos\ofekm5\ZeroRttTcp\ClientNIC\TcpDetector"
 
 def main():
     config = PyVivConfig.PyVivConfig()
