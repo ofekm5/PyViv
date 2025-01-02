@@ -12,8 +12,8 @@ def main():
     config = PyVivConfig.PyVivConfig()
     executor = PyVivExecutor.PyVivExecutor()
 
-    tcl_args = config.build_arguments()
-    executor.run_tcl_script(tcl_args)
+    operation, vivado_path, tcl_args = config.build_arguments()
+    executor.run_tcl_script(operation, vivado_path, tcl_args)
 
 if __name__ == "__main__":
     main()

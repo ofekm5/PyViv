@@ -7,16 +7,22 @@ class PyVivExecutor:
 
     def run_tcl_script(self, operation, vivado_path, tcl_args):
         """Runs a Vivado TCL script with the provided arguments."""
-        tcl_script = f"../scripts/{operation}.tcl"
+        tcl_script = os.path.join(os.path.dirname(os.path.dirname(__file__)), "scripts", f"{operation}.tcl")
+        if not os.path.isfile(tcl_script):
+            print(f"\033[31mERROR: TCL script '{tcl_script}' not found.\033[0m")
+            exit(1)
 
         if not os.path.isfile(tcl_script):
             print(f"\033[31mERROR: TCL script '{tcl_script}' not found.\033[0m")
             exit(1)
 
         command = [
-            vivado_path, "-mode", "batch",
-            "-source", tcl_script
-        ] + tcl_args
+            vivado_path,
+            "-mode", "batch",
+            "-nojournal", "-nolog",
+            "-source", tcl_script,
+            "-tclargs"
+        ] + tcl_args  
 
         print(f"\n\033[34m{'-' * 50}\033[0m")
         print(f"\033[34mRunning Vivado: {' '.join(command)}\033[0m")

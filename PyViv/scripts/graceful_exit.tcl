@@ -1,2 +1,0 @@
-close_project
-quit
