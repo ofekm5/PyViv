@@ -12,6 +12,7 @@ class PyVivConfig:
         args = parser.parse_args()
 
         self.__vivado_path = args.vivado
+        self.__operation = args.operation
 
         if args.operation == "add-path":
             if not args.path:
