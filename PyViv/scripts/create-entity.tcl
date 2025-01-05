@@ -35,12 +35,12 @@ if { ![file isdirectory $entity_folder_path] } {
 set vhdl_template {
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity ENTITY_NAME is
   Port (
     clk : in std_logic;
-    rst : in std_logic;
+    reset : in std_logic;
     din : in std_logic_vector(7 downto 0);
     dout : out std_logic_vector(7 downto 0)
   );
@@ -51,7 +51,7 @@ begin
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '0' then
+      if reset = '0' then
         dout <= (others => '0');
       else
         dout <= din;

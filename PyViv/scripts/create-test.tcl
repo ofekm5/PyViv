@@ -35,14 +35,14 @@ if { ![file isdirectory $testbench_folder_path] } {
 set tb_template {
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity TESTBENCH_NAME is
 end TESTBENCH_NAME;
 
 architecture Behavioral of TESTBENCH_NAME is
   signal clk : std_logic := '0';
-  signal rst : std_logic := '1';
+  signal reset : std_logic := '1';
   signal din : std_logic_vector(7 downto 0) := (others => '0');
   signal dout : std_logic_vector(7 downto 0);
 
@@ -53,7 +53,7 @@ begin
   uut: entity work.ENTITY_WRAPPER
     port map (
       clk => clk,
-      rst => rst,
+      reset => reset,
       din => din,
       dout => dout
     );
@@ -76,7 +76,7 @@ begin
     en <= '1';
 
     -- Test case 1
-    din <= "00000001"; -- Flags
+    din <= "00000001"; 
     wait for clk_period;
     assert dout = "00000001" report "Test 1 failed" severity error;
 
