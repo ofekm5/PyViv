@@ -51,7 +51,7 @@ begin
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
+      if rst = '0' then
         dout <= (others => '0');
       else
         dout <= din;
