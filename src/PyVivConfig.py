@@ -8,7 +8,7 @@ class PyVivConfig:
         parser.add_argument("operation", choices=self.__pyviv_operations, help="Operation to perform (e.g., create-entity, create-test, check-syntax, add-path).")
         parser.add_argument("--vivado", default="C:/Xilinx/Vivado/2024.1/bin/vivado.bat", help="Path to the Vivado executable (default: 'vivado').")
         parser.add_argument("--entity", help="Name of the VHDL entity (required for create-entity and create-test).")
-        parser.add_argument("--path", help="Override the project repository path.")
+        parser.add_argument("--path", default=os.getcwd(), help="Override the project repository path.")
         args = parser.parse_args()
 
         self.__vivado_path = args.vivado
