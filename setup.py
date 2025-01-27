@@ -1,10 +1,8 @@
 from setuptools import setup, find_packages
 
-# Whenever you make changes, reinstall the package by running: pip install --upgrade .
-
 setup(
     name="pyviv",
-    version="0.2.3",
+    version="1.0.0",
     author="Ofekm5",
     description="A Python tool for managing VHDL designs with Vivado",
     long_description=open("README.md").read(),

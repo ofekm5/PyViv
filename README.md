@@ -89,6 +89,12 @@ pyviv <operation> [options]
   pyviv add-path --path "C:/path/to/your/project"
   ```
 
+- **Set Vivado path:**  
+  Set the Vivado executable path for future commands.  
+  ```bash
+  pyviv add-vivado --vivado "C:/path/to/your/project"
+  ```
+
 - **Create a new VHDL entity:**  
   Automatically creates an entity file with a pre-defined template.  
   ```bash
@@ -135,7 +141,7 @@ PyViv/
 │   ├── pyviv.py                 # Main CLI entry point
 │   ├── PyVivConfig.py           # Handles CLI arguments and project path
 │   ├── PyVivExecutor.py         # Handles execution of Vivado TCL scripts
-│   ├── scripts/                 # Folder containing all TCL scripts
+├── scripts/                     # Folder containing all TCL scripts
 ├── setup.py                     # Installation configuration
 ├── README.md                    # Documentation
 ├── LICENSE                      # Project license
