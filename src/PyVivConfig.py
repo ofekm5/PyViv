@@ -3,7 +3,7 @@ import os
 
 class PyVivConfig:
     def __init__(self):
-        self.__pyviv_operations = ["create-entity", "create-test", "check-syntax", "add-path","add-vivado"]
+        self.__pyviv_operations = ["create-entity", "create-test", "check-syntax", "add-path", "add-vivado", "export-xsa"]
         parser = argparse.ArgumentParser(description="PyViv: A VHDL Management Tool")
         parser.add_argument("operation", choices=self.__pyviv_operations, help="Operation to perform (e.g., create-entity, create-test, check-syntax, add-path).")
         parser.add_argument("--vivado", default="C:/Xilinx/Vivado/2024.2/bin/vivado.bat", help="Path to the Vivado executable (default: 'vivado').")
@@ -13,6 +13,7 @@ class PyVivConfig:
 
         self.__vivado_path = args.vivado
         self.__operation = args.operation
+        
 
         if args.operation == "add-path":
             if not args.path:
@@ -90,7 +91,6 @@ class PyVivConfig:
         with open(config_file, "w") as f:
             f.writelines(lines)
 
-
     def build_arguments(self):
         if self.__operation in ["create-entity", "create-test"]:
             if not self.__entity_name or not self.__project_repo:
@@ -102,6 +102,8 @@ class PyVivConfig:
             if not self.__project_repo:
                 print("\033[31mERROR: Missing required argument '--path' for check-syntax.\033[0m")
                 exit(1)
+            tcl_args = [self.__project_repo]
+        elif self.__operation in ["export-xsa"]:
             tcl_args = [self.__project_repo]
         else:
             tcl_args = []

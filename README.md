@@ -112,7 +112,12 @@ pyviv <operation> [options]
   ```bash
   pyviv check-syntax
   ```
-
+  
+- **Exporting .xsa:**  
+  Export block design compiled into xsa file
+  ```bash
+  pyviv export-xsa
+  ```
 ---
 
 ## Contribution
